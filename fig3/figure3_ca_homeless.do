@@ -3,12 +3,11 @@
 * Source: HUD Exchange
 *
 * NOTES:
-* - Data values are approximated from visual inspection of the original figure
-* - For exact values, download from HUD Exchange:
-*   https://www.huduser.gov/portal/datasets/ahar/2020-ahar-part-1-pit-estimates-of-homelessness-in-the-us.html
-*   (2007-2020 Point-in-Time Estimates by State and 2007-2020 HIC by State)
+* - Data extracted from official HUD Exchange Excel files:
+*   - 2007-2020-PIT-Estimates-by-state.xlsx (Homeless population counts)
+*   - 2007-2020-HIC-Counts-by-State.xlsx (Housing inventory counts)
 * - SB 1380 passed in 2016
-* - 2020 Difference between Homeless Population and Permanent Units: 64,358
+* - 2020 Difference between Homeless Population and Permanent Units: 73,065
 *******************************************************************************/
 
 clear all
@@ -16,24 +15,25 @@ set more off
 
 *-------------------------------------------------------------------------------
 * CREATE DATASET
-* Values read from Figure 3 (approximate)
+* Data from HUD Exchange: PIT Estimates and HIC Counts by State (2007-2020)
 *-------------------------------------------------------------------------------
 
 input year overall_homeless unsheltered sheltered perm_housing shelter_units
-2010  123000  72000  51000  32000  50000
-2011  130000  78000  52000  36000  52000
-2012  136000  85000  51000  50000  52000
-2013  118000  69000  49000  38000  48000
-2014  114000  67000  47000  45000  47000
-2015  116000  69000  47000  54000  45000
-2016  118000  72000  46000  62000  44000
-2017  134000  91000  43000  70000  44000
-2018  129000  89000  40000  80000  44000
-2019  151000  108000 43000  88000  47000
-2020  161000  114000 47000  96642  50000
+2010  123480  72581  50899  39772  20010
+2011  125128  74437  50691  42530  19958
+2012  120098  74208  45890  50057  17541
+2013  118552  72998  45554  42180  16680
+2014  113952  71437  42515  49084  17869
+2015  115738  73699  42039  56894  20857
+2016  118142  78390  39752  65191  20240
+2017  131532  88896  42636  71653  24799
+2018  129972  89543  40429  80743  27246
+2019  151278  108432  42846  85838  31028
+2020  161548  113660  47888  88483  38241
 end
 
-* Note: perm_housing in 2020 = 161000 - 64358 = 96642 (from figure annotation)
+* Note: perm_housing = PSH + RRH beds from HIC data
+* 2020 Gap = 161548 - 88483 = 73065
 
 label variable year "Year"
 label variable overall_homeless "Overall Homeless Population"
@@ -101,7 +101,7 @@ twoway ///
     ///
     /* Add text annotations */ ///
     text(155000 2014.5 "Passage of" "SB 1380", size(vsmall) placement(west)) ///
-    text(130000 2018.5 "2020 Difference between" "Homeless Population and Permanent Units:" "64,358", ///
+    text(130000 2018.5 "2020 Difference between" "Homeless Population and Permanent Units:" "73,065", ///
         size(vsmall) placement(east) justification(left)) ///
     ///
     note("Source: HUD Exchange", size(vsmall))
@@ -144,7 +144,7 @@ twoway ///
     graphregion(color(white)) ///
     plotregion(margin(small)) ///
     text(155000 2014.3 "Passage of" "SB 1380", size(vsmall) placement(west)) ///
-    text(125000 2018.8 "2020 Difference between" "Homeless Population and Permanent Units:" "64,358", ///
+    text(125000 2018.8 "2020 Difference between" "Homeless Population and Permanent Units:" "73,065", ///
         size(vsmall) placement(east) justification(left)) ///
     note("Source: HUD Exchange", size(vsmall) position(7))
 
